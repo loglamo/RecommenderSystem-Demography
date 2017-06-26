@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package readData;
+import static java.lang.Float.NaN;
 import static java.lang.Integer.parseInt;
 import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
@@ -110,11 +111,11 @@ public class decodeData{
        ArrayList ratearray = RateArray(i);      
        float total = 0;
        for(int e=0;e < ratearray.size();e++){
-           float rate = (float) ratearray.get(e);
+           int rate = (int) ratearray.get(e);
            total += rate;
            
        }
-       float average = (float) total/ratearray.size();
+       float average = (Float) total/ratearray.size();
        return average;
    }
 
@@ -210,14 +211,28 @@ public class decodeData{
    }
    //phương thức tính độ tương đồng giữa 2 film
    public static float CalDis(int m,int n){
+       float total;
        float first = CalFirst(m,n);
        float second = CalSecond(m,n);
-       float total = (float) (first/second);
-       return total;
+       if(second == 0.0){
+           total = -1;
+       }else{
+       total = (float) (first/second);}
+      return total;
    }
-}
+}//chỗ này, chưa fix dc NaN
+   /*public static void main(String[] args){
+       float ts = CalFirst(1,1);
+       float ms = CalSecond(1,1);
+       float a = ts/ms;
+       System.out.println(a);
+       System.out.println(ts);
+       System.out.println(ms);
+   }
+}*/
+
    //ma trận tương đồng giữa các bộ film
-  /* public static ArrayList DissMatrix(){
+   /*public static ArrayList DissMatrix(){
        ArrayList dissmatrix = new ArrayList();
        for(int i=1;i < 1682;i++){
            ArrayList feature = new ArrayList();
@@ -229,15 +244,14 @@ public class decodeData{
            
        }
        return dissmatrix;
-   }
+   }*/
 
-   public static void main(String[] args){
-       ArrayList y = DissMatrix();
-       System.out.println(y.get(0));
+  
+       //System.out.println(y.get(0));
        //for(int e = 0;e < y.size();e++){
        //    System.out.println(y.get(e));
-       }
-}
+       
+
 
 
    //phương thức tính độ tương đồng của 2 bộ film;
